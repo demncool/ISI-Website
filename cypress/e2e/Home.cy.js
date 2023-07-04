@@ -29,5 +29,7 @@ describe("Home", () => {
       
     //verify if icons appear
     cy.get(".innovuze-logo-banner-wrapper").should("be.visible")
+
+    //home
     })
 })
