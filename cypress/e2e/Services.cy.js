@@ -16,7 +16,6 @@ describe("Services Page", () => {
 
     it("Verify if the About Page contains all elements", function () {
         Services.Verify_if_the_About_Page_contains_all_elements(".services-list > div", this.services.Services)
-        cy.get(".btn-inquireNow").should("be.visible")
     })
 
     it("Verify if Inquire Now Button on Each Services is Working", () => {
