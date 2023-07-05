@@ -14,7 +14,7 @@ describe("About Page", () => {
         About.Verify_if_the_About_Page_contains_all_elements()
     })
 
-    it.only("Verify if Join Our Team Button Works", { scrollBehavior: false }, () => {
+    it("Verify if Join Our Team Button Works", { scrollBehavior: false }, () => {
         About.Verify_if_Join_Our_Team_Button_Works(".joinTeam-abtus-btn")
         cy.url().should("eq", "https://dev.innovuze.com/careers/")
     })
