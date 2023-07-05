@@ -10,7 +10,9 @@ export const About = {
     },
 
     Verify_if_Join_Our_Team_Button_Works: (joinBtn) => {
-        cy.get(joinBtn).click()
+        cy.get(joinBtn)
+            .scrollIntoView()
+            .click()
         cy.get(".career-page-wrapper #accordCareer > div")
             .should("be.visible")
             .and("have.length", 6)
