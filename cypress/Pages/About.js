@@ -17,5 +17,4 @@ export const About = {
             .should("be.visible")
             .and("have.length", 6)
     }
-
 }
