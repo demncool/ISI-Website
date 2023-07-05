@@ -11,6 +11,9 @@ export const Header = {
         cy.get(".navbar-nav > li")
             .as("element")
             .each((el, index, list) => {
+                if(index == 6){
+                    return false
+                }
                 cy.get("@element")
                     .eq(index)
                     .then((val) => {

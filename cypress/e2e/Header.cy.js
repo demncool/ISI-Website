@@ -2,6 +2,10 @@ import { Header } from "../Pages/Header"
 
 describe("Home", () => {
     beforeEach(() => {
+        cy.fixture("Header").then(function (header) {
+            this.header = header
+        })
+
         cy.visit('/')
         cy.acceptCookies()
     })
@@ -25,12 +29,7 @@ describe("Home", () => {
         cy.url().should("eq", "https://dev.innovuze.com/")
     })
 
-    it.only("Verify if Navigation is Working", function () {
-        cy.fixture("Header").then(function (header) {
-            this.header = header
-        })
-        
+    it("Verify if Navigation is Working", function () {
         Header.Verify_if_Navigation_is_Working(this.header.navigationLinks)
-
     })
 })
