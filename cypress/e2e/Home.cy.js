@@ -22,14 +22,12 @@ describe("Home", () => {
   it("Verify if Join Our team is Working", { scrollBehavior: false }, () => {
     cy.get(".joinTeam-btn").click()
     Home.Verify_if_Join_Our_team_is_Working()
-  }),
+  })
 
-    it("Verify if Hover Action on the ISI Logo is Working", { scrollBehavior: false }, () => {
-      cy.get(".innovuze-logo-banner").rightclick()
-      
+  it("Verify if Hover Action on the ISI Logo is Working", { scrollBehavior: false }, () => {
+    cy.get(".innovuze-logo-banner").rightclick()
+
     //verify if icons appear
     cy.get(".innovuze-logo-banner-wrapper").should("be.visible")
-
-    //home
-    })
+  })
 })
