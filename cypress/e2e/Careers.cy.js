@@ -33,7 +33,17 @@ describe("Careers Page", () => {
         Careers.Verify_Apply_for_This_Job_Button_is_Working()
     })
 
-    it.only("Verify Facebook Page Button", () => {
-        
+    it("Verify Facebook Page Button", () => {
+        const url = "https://www.facebook.com/innovuzesolutions"
+
+        cy.get(".career-btn-more").click({ force: true })
+
+        cy.get(".job-posting-text")
+            .should("contain", "To be updated on the latest job postings, like and follow us on our Facebook page.")
+            .and("be.visible")
+            .invoke("removeAttr", "target")
+            .click()
+            .url()
+            .should("eq", url)
     })
 })
