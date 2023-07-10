@@ -30,3 +30,9 @@ Cypress.Commands.add("acceptCookies", () => {
         .click()
     cy.url().should("include", "innovuze.com")
 })
+
+Cypress.Commands.add("clickRandomElement", (element, length) => {
+    var index = Math.floor(Math.random() * length)
+    cy.get(element)
+        .eq(index)
+})
