@@ -1,6 +1,9 @@
 import { BlogObjects } from "../Pages/BlogObjects"
 
 describe("blog", () => {
+
+    let blog = BlogObjects
+
     beforeEach(() => {
         cy.fixture("Blog").then(function (blog) {
             this.blog = blog
@@ -53,26 +56,21 @@ describe("blog", () => {
 
         cy.get(".btn-more-blog").click()
 
-        BlogObjects.Verify_Pagination_is_Working(".pagination > li", 2)
+        blog.Verify_Pagination_is_Working(".pagination > li", 2)
         cy.contains(text[0]).should("be.visible")
-        BlogObjects.Verify_Pagination_is_Working(".pagination > li", 5)
+        blog.Verify_Pagination_is_Working(".pagination > li", 5)
         cy.contains(text[1]).should("be.visible")
-        BlogObjects.Verify_Pagination_is_Working(".pagination > li", 0)
+        blog.Verify_Pagination_is_Working(".pagination > li", 0)
         cy.contains(text[0]).should("be.visible")
     })
 
     it("Verify If First 10 Blogs Links are Working", function () {
         cy.get(".btn-more-blog").click()
-        BlogObjects.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)", this.blog.firstTenBlogsLinks)
+        blog.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)", this.blog.firstTenBlogsLinks)
     })
 
-    it.only("Verify if Archive Selection is working", function () {
+    it("Verify if Archive Selection is working", function () {
         cy.get(".btn-more-blog").click()
-
-
-        BlogObjects.Verify_if_Archive_Selection_is_working()
-       
-
-
+        blog.Verify_if_Archive_Selection_is_working()
     })
 })

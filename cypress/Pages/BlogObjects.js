@@ -36,28 +36,19 @@ export const BlogObjects = {
     },
 
     Verify_if_Archive_Selection_is_working(element) {
-
-        let data
         //get element length
+
         cy.get(".archive  > div")
             .then((val) => {
                 length = val.length
                 //select random element
-                cy.clickRandomElement(".archive  > div", length)
+                return cy.clickRandomElement(".archive  > div", length)
                     .scrollIntoView()
                     .click({ scrollBehavior: 'center' })
-                    //verify if selected month and year is shown 
-                    .then((text) => {
-                        cy.wrap(text)
-                            .invoke("text")
-                            .as("finalText")
-                        cy.get("@finalText")
-                            .then((finalText) => {
-                                data = cy.wrap(finalText.trim())
-                            })
+                    .invoke("text")
+                    .then((val) => {
+                       cy.contains(val.trim())
                     })
             })
-
-        return data
     }
 }
