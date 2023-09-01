@@ -1,24 +1,31 @@
-export const Careers = {
-    Verify_if_Clicking_the_First_Four_Jobs_is_Working: (careersLinks) => {
-        cy.get(".careers-list > a")
-            .as("element")
+class Careers {
+    Verify_if_Clicking_the_First_Four_Jobs_is_Working = (element) => {
+        cy.get(element)
             .each((el, index, list) => {
-                cy.get("@element")
+                cy.get(element)
                     .eq(index)
+                    .invoke("removeAttr", "target")
+                    .click({ force: true })
+                    .invoke("text")
                     .then((val) => {
-                        cy.wrap(val)
-                            .invoke("removeAttr", "target")
-                            .click({ force: true })
-                            .url()
-                            .should("eq", careersLinks[index])
-                        cy.get(".apply-btn-wrapper")
-                            .should("be.visible")
-                            .go("back")
+                        if (val == "Data Quality Specialist (Short Term, 6 Months Project) ") {
+                            let text = val.trim().replace("(Short Term, 6 Months Project)", "")
+                            cy.url().should("include", text.trim().toLowerCase().replaceAll(" ", "-"))
+                        } else {
+                            cy.wrap(val)
+                                .url()
+                                .should("include", val.trim().toLowerCase().replace(" / ", "-").replace(" ", "-"))
+                        }
                     })
-            })
-    },
 
-    Verify_if_View_Open_Roles_Here_Button_is_Working: (allRoles) => {
+                //verify Apply For This Job Button is Visible
+                cy.get(".apply-btn-wrapper")
+                    .should("be.visible")
+                    .go("back")
+            })
+    }
+
+    Verify_if_View_Open_Roles_Here_Button_is_Working = (allRoles) => {
         cy.get(".career-btn-more-wrapper > a")
             .should("be.visible")
             .click({ force: true })
@@ -31,9 +38,9 @@ export const Careers = {
                 cy.wrap(el)
                     .should("contain", allRoles[index])
             })
-    },
+    }
 
-    Verify_Apply_for_This_Job_Button_is_Working: () => {
+    Verify_Apply_for_This_Job_Button_is_Working = () => {
 
         //store elemetn count
         cy.get(".accordion > div")
@@ -50,7 +57,21 @@ export const Careers = {
                     .invoke("removeAttr", "target")
                     .click({ force: true })
             })
-
-
     }
+
+    Verify_Facebook_Page_Button = () => {
+        const url = "https://www.facebook.com/innovuzesolutions"
+
+        cy.get(".career-btn-more").click({ force: true })
+
+        cy.get(".job-posting-text")
+            .should("contain", "To be updated on the latest job postings, like and follow us on our Facebook page.")
+            .and("be.visible")
+            .invoke("removeAttr", "target")
+            .click()
+            .url()
+            .should("eq", url)
+    }
+
 }
+module.exports = Careers

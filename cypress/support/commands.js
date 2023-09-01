@@ -24,6 +24,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add("requestLink", () => {
+    cy.request({
+        url: '/',
+        failOnStatusCode: true,
+    })
+})
+
 Cypress.Commands.add("acceptCookies", () => {
     cy.get(".primary-button")
         .should("be.visible")

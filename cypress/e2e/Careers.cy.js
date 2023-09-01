@@ -1,11 +1,14 @@
-import { Careers } from "../Pages/Careers"
+import Careers from "../Pages/Careers"
+
+const careers = new Careers
 
 describe("Careers Page", () => {
     beforeEach(() => {
-        cy.fixture("Careers").then(function (Careers) {
-            this.Careers = Careers
+        cy.fixture("Careers").then(function (careers) {
+            this.careers = careers
         })
 
+        cy.requestLink()
         cy.visit('/')
         cy.acceptCookies()
         cy.url().should("eq", "https://dev.innovuze.com/")
@@ -21,29 +24,19 @@ describe("Careers Page", () => {
     })
 
     it("Verify if Clicking the First Four Jobs is Working", function () {
-        Careers.Verify_if_Clicking_the_First_Four_Jobs_is_Working(this.Careers.careersLinks)
+        careers.Verify_if_Clicking_the_First_Four_Jobs_is_Working(".careers-list > a")
     })
 
     it("Verify if View Open Roles Here Button is Working", function () {
-        Careers.Verify_if_View_Open_Roles_Here_Button_is_Working(this.Careers.allRoles)
+        careers.Verify_if_View_Open_Roles_Here_Button_is_Working(this.careers.allRoles)
     })
 
     it("Verify Apply for This Job Button is Working", function () {
-        Careers.Verify_if_View_Open_Roles_Here_Button_is_Working(this.Careers.allRoles)
-        Careers.Verify_Apply_for_This_Job_Button_is_Working()
+        careers.Verify_if_View_Open_Roles_Here_Button_is_Working(this.careers.allRoles)
+        careers.Verify_Apply_for_This_Job_Button_is_Working()
     })
 
     it("Verify Facebook Page Button", () => {
-        const url = "https://www.facebook.com/innovuzesolutions"
-
-        cy.get(".career-btn-more").click({ force: true })
-
-        cy.get(".job-posting-text")
-            .should("contain", "To be updated on the latest job postings, like and follow us on our Facebook page.")
-            .and("be.visible")
-            .invoke("removeAttr", "target")
-            .click()
-            .url()
-            .should("eq", url)
+        careers.Verify_Facebook_Page_Button()
     })
 })
