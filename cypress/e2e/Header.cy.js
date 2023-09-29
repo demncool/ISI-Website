@@ -25,12 +25,14 @@ describe("Home", () => {
         cy.url().should("eq", "https://dev.innovuze.com/")
     })
 
-    it("Verify if Navigation is Working", function () {
+    it.only("Verify if Navigation is Working", function () {
         let navigationLinks = this.headerFixture.navigationLinks
 
         cy.wrap(navigationLinks).each((el, index) => {
             header.verifyNavigationFunction(`.navbar-nav > li:eq(${index})`)
             cy.url().should("include", el)
         })
+        //verify contact us modal
+        cy.get(".modal-content").should("be.visible")
     })
 })
