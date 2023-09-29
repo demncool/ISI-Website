@@ -1,4 +1,13 @@
 {
+  "navigationText": [
+    "Home",
+    "About",
+    "Services",
+    "Projects",
+    "Careers",
+    "Blog",
+    "Contact Us"
+  ],
   "navigationLinks": [
     "https://dev.innovuze.com/",
     "https://dev.innovuze.com/#about-us",

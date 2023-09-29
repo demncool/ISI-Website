@@ -1,36 +1,36 @@
-import { Header } from "../Pages/Header"
+import headerObject from "../Pages/headerObject"
+
+const header = new headerObject
 
 describe("Home", () => {
     beforeEach(() => {
-        cy.fixture("Header").then(function (header) {
-            this.header = header
+        cy.fixture("Header").then(function (headerFixture) {
+            this.headerFixture = headerFixture
         })
 
         cy.visit('/')
         cy.acceptCookies()
     })
-    it("Verify if Header contains all elements", () => {
-        const navigationText = [
-            "Home",
-            "About",
-            "Services",
-            "Projects",
-            "Careers",
-            "Blog",
-            "Contact Us"
-        ]
+    it("Verify if Header contains all elements", function () {
+        let navigationText = this.headerFixture.navigationText
 
-        cy.get("#isi-logo").should("be.visible")
-        Header.Verify_if_Header_contains_all_elements(navigationText)
+        cy.wrap(navigationText).each(function (el, index) {
+            header.verifyHeaderElements(`.navbar-nav > li:eq(${index})`)
+                .contains(el)
+        })
     })
 
     it("Verify if ISI Logo Function Works", () => {
-        cy.get("#isi-logo").click()
+        header.verifyHeaderLogo("#isi-logo")
         cy.url().should("eq", "https://dev.innovuze.com/")
     })
 
     it("Verify if Navigation is Working", function () {
-        Header.Verify_if_Navigation_is_Working(this.header.navigationLinks)
-        //commit
+        let navigationLinks = this.headerFixture.navigationLinks
+
+        cy.wrap(navigationLinks).each((el, index) => {
+            header.verifyNavigationFunction(`.navbar-nav > li:eq(${index})`)
+            cy.url().should("include", el)
+        })
     })
 })
