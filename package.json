@@ -9,9 +9,10 @@
   "version": "1.0.0",
   "main": "cypress.config.js",
   "scripts": {
-    "chrome-test": "npx cypress run --browser chrome",
-    "firefox-test": "npx cypress run --browser firefox",
-    "edge-test": "npx cypress run --browser edge"
+    "test-chrome": "cypress run --browser chrome",
+    "test-firefox": "cypress run --browser firefox",
+    "test-edge": "cypress run --browser edge",
+    "open": "npx cypress open"
   },
   "author": "",
   "license": "ISC",
