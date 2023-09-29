@@ -32,5 +32,7 @@ describe("Home", () => {
             header.verifyNavigationFunction(`.navbar-nav > li:eq(${index})`)
             cy.url().should("include", el)
         })
+        //verify contact us modal
+        cy.get(".modal-content").should("be.visible")
     })
 })
