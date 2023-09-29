@@ -25,7 +25,7 @@ describe("Home", () => {
         cy.url().should("eq", "https://dev.innovuze.com/")
     })
 
-    it.only("Verify if Navigation is Working", function () {
+    it("Verify if Navigation is Working", function () {
         let navigationLinks = this.headerFixture.navigationLinks
 
         cy.wrap(navigationLinks).each((el, index) => {
