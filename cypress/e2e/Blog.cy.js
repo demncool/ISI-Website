@@ -1,17 +1,17 @@
-import { BlogObjects } from "../Pages/BlogObjects"
+import BlogObjects from "../Pages/BlogObjects"
+
+const blog = new BlogObjects
+
 
 describe("blog", () => {
-
-    let blog = BlogObjects
-
     beforeEach(() => {
         cy.fixture("Blog").then(function (blog) {
             this.blog = blog
         })
-
+        cy.requestLink()
         cy.visit('/')
         cy.acceptCookies()
-
+        0
 
         cy.contains("Blog").should("be.visible")
             .click()
@@ -35,9 +35,8 @@ describe("blog", () => {
     })
 
     it("Verify If Clicking the Shown Blogs is Working", function () {
-        BlogObjects.Verify_If_Clicking_the_Shown_Blogs_is_Working(".blog-list > div > div > div:nth-child(1)", this.blog.recentBlogsLinks)
-        //verify if back to blog Landing Page
-        cy.url().should("eq", "https://dev.innovuze.com/#blog")
+        blog.Verify_If_Clicking_the_Shown_Blogs_is_Working("h2.blog-title", this.blog.recentBlogsLinks)
+
     })
 
     it("Verify More Blogs Here button is working", () => {

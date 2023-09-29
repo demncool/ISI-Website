@@ -1,5 +1,5 @@
-export const BlogObjects = {
-    Verify_If_Clicking_the_Shown_Blogs_is_Working: (element, recentBlogsLinks) => {
+class BlogObjects {
+    Verify_If_Clicking_the_Shown_Blogs_is_Working = (element, recentBlogsLinks) => {
         cy.get(element)
             .each((el, index, list) => {
                 cy.get(element)
@@ -10,17 +10,19 @@ export const BlogObjects = {
                             .url()
                             .should("eq", recentBlogsLinks[index])
                             .go("back")
+                        //verify if back to blog Landing Page
+                        cy.url().should("eq", "https://dev.innovuze.com/#blog")
                     })
             })
-    },
+    }
 
-    Verify_Pagination_is_Working: (element, index) => {
+    Verify_Pagination_is_Working = (element, index) => {
         cy.get(element)
             .eq(index)
-            .click()
-    },
+        click()
+    }
 
-    Verify_If_First_10_Blogs_Links_are_Working: (element, firstTenBlogsLinks) => {
+    Verify_If_First_10_Blogs_Links_are_Working = (element, firstTenBlogsLinks) => {
         cy.get(element)
             .each((el, index, list) => {
                 cy.get(element)
@@ -33,7 +35,7 @@ export const BlogObjects = {
                             .go("back")
                     })
             })
-    },
+    }
 
     Verify_if_Archive_Selection_is_working(element) {
         //get element length
@@ -47,8 +49,9 @@ export const BlogObjects = {
                     .click({ scrollBehavior: 'center' })
                     .invoke("text")
                     .then((val) => {
-                       cy.contains(val.trim())
+                        cy.contains(val.trim())
                     })
             })
     }
 }
+module.exports = BlogObjects
