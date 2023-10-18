@@ -1,4 +1,6 @@
-import { About } from "../Pages/About"
+import AboutOject from "../Pages/AboutObject"
+
+const about = new AboutOject
 
 describe("About Page", () => {
     beforeEach(() => {
@@ -6,16 +8,16 @@ describe("About Page", () => {
         cy.acceptCookies()
         cy.contains("About")
             .click()
+        cy.url().should("eq", "https://dev.innovuze.com/#about-us")
     })
 
     it("Verify if the About Page contains all elements", () => {
-        cy.url().should("eq", "https://dev.innovuze.com/#about-us")
-
-        About.Verify_if_the_About_Page_contains_all_elements()
+        about.verifyAboutPageElements()
     })
 
     it("Verify if Join Our Team Button Works", { scrollBehavior: false }, () => {
-        About.Verify_if_Join_Our_Team_Button_Works(".joinTeam-abtus-btn")
+        about.verifyJoinUsBtn(".joinTeam-abtus-btn")
         cy.url().should("eq", "https://dev.innovuze.com/careers/")
+        cy.isInViewport(".careers-page").find("h1")
     })
 })
