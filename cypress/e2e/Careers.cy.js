@@ -1,4 +1,4 @@
-import Careers from "../Pages/Careers"
+import Careers from "../Pages/CareersObject"
 
 const careers = new Careers
 
