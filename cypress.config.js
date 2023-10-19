@@ -5,7 +5,7 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: "https://dev.innovuze.com/",
     scrollBehavior: 'nearest',
-    //numTestsKeptInMemory: 0,
+    numTestsKeptInMemory: 0,
     pageLoadTimeout: 120000,
     responseTimeout: 120000,
     defaultCommandTimeout: 20000,
