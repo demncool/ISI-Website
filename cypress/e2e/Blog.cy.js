@@ -1,4 +1,4 @@
-import BlogObjects from "../Pages/BlogObjects"
+import BlogObjects from "../Pages/BlogObject"
 
 const blog = new BlogObjects
 
@@ -11,7 +11,6 @@ describe("blog", () => {
         cy.requestLink()
         cy.visit('/')
         cy.acceptCookies()
-        0
 
         cy.contains("Blog").should("be.visible")
             .click()
@@ -35,7 +34,16 @@ describe("blog", () => {
     })
 
     it("Verify If Clicking the Shown Blogs is Working", function () {
-        blog.Verify_If_Clicking_the_Shown_Blogs_is_Working("h2.blog-title", this.blog.recentBlogsLinks)
+        const blogTitle = blog.getText("h2.blog-title")
+        cy.log(blogTitle)
+        cy.wrap(blogTitle).each((el, index) => {
+            blog.verify_shown_blogs_are_working(`h2.blog-title:eq(${index})`)
+            el = el.replaceAll("advance-excel--google-sheets-training", "advance-excel-google-sheets-training")
+            el = el.replaceAll("celebrating-10-years-of-innovation:-innovuze-solutions,-inc.'s-unforgettable-team-building-event", "celebrating-10-years-of-innovation-innovuze-solutions-inc-s-unforgettable-team-building-event")
+            el = el.replaceAll("project-managers-and-digital-marketing-micro-team-building-2022", "pm-and-digital-marketing-micro-team-building-2022")
+            cy.url().should("include", el)
+            cy.go("back")
+        })
 
     })
 

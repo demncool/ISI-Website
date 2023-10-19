@@ -1,25 +1,27 @@
 class BlogObjects {
-    Verify_If_Clicking_the_Shown_Blogs_is_Working = (element, recentBlogsLinks) => {
-        cy.get(element)
-            .each((el, index, list) => {
-                cy.get(element)
-                    .eq(index)
-                    .then((val) => {
-                        cy.wrap(val)
-                            .click()
-                            .url()
-                            .should("eq", recentBlogsLinks[index])
-                            .go("back")
-                        //verify if back to blog Landing Page
-                        cy.url().should("eq", "https://dev.innovuze.com/#blog")
-                    })
+    //global
+
+    getText = (selector) => {
+        const text = []
+
+        cy.get(selector)
+            .each((el) => {
+                text.push(el.text().replace("Celebrating 10 Years of Innovation: Innovuze Solutions, Inc.'s . . .", "Celebrating 10 Years of Innovation: Innovuze Solutions, Inc.'s Unforgettable Team Building Event").toLowerCase().replace(/[&]/g, "").replaceAll(" ", "-"))
             })
+        return text
+    }
+
+    verify_shown_blogs_are_working = (selector1, selector2) => {
+        cy.get(selector1)
+            .scrollIntoView()
+            .click(0, 40)
+
     }
 
     Verify_Pagination_is_Working = (element, index) => {
         cy.get(element)
             .eq(index)
-        click()
+            .click()
     }
 
     Verify_If_First_10_Blogs_Links_are_Working = (element, firstTenBlogsLinks) => {
