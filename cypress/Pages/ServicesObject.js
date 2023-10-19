@@ -1,5 +1,5 @@
-export const Services = {
-    Verify_if_the_About_Page_contains_all_elements: function (element, Services) {
+class Services {
+    Verify_if_the_About_Page_contains_all_elements = function (element, Services) {
         cy.get(".service-title").should("be.visible")
             .and("contain", "What We Do")
 
@@ -8,9 +8,9 @@ export const Services = {
                 cy.wrap(el)
                     .should("contain", Services[index])
             })
-    },
+    }
 
-    Verify_if_Inquire_Now_Button_on_Each_Services_is_Working: () => {
+    Verify_if_Inquire_Now_Button_on_Each_Services_is_Working = () => {
         cy.get(".services-list > div")
             .as("element")
             .each((el, index, list) => {
@@ -27,3 +27,5 @@ export const Services = {
             })
     }
 }
+
+module.exports = Services
