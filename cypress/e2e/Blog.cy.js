@@ -34,7 +34,7 @@ describe("blog", () => {
     })
 
     it("Verify If Clicking the Shown Blogs is Working", function () {
-        const blogTitle = blog.getText("h2.blog-title")
+        const blogTitle = blog.getUrl("h2.blog-title")
         cy.log(blogTitle)
         cy.wrap(blogTitle).each((el, index) => {
             blog.verify_shown_blogs_are_working(`h2.blog-title:eq(${index})`)
@@ -73,11 +73,26 @@ describe("blog", () => {
 
     it("Verify If First 10 Blogs Links are Working", function () {
         cy.get(".btn-more-blog").click()
-        blog.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)", this.blog.firstTenBlogsLinks)
+        let url = blog.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)")
+        cy.wrap(url).each((el, index) => {
+            cy.wrap(el).should("contain", this.blog.firstTenBlogsLinks[index])
+        })
     })
 
     it("Verify if Archive Selection is working", function () {
         cy.get(".btn-more-blog").click()
-        blog.Verify_if_Archive_Selection_is_working()
+        let text = blog.getText(".archive  > div")
+
+        cy.wrap(text).each((el, index) => {
+            blog.Verify_if_Archive_Selection_is_working(".archive  > div", index)
+            el = el.split(" ")[0]
+            cy.get(".col-md-9").contains(el)
+        })
+    })
+
+    it("Verify if Read More Button is Working", function () {
+        let url = blog.verify_Read_More_Btn(".blogLatest-holder > .btn")
+        cy.log(url)
+        cy.url().should("include", url)
     })
 })
