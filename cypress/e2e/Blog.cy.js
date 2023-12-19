@@ -1,6 +1,8 @@
-import BlogObjects from "../Pages/BlogObjects"
+import BlogObjects from "../Pages/BlogObject"
+import BlogAssertsions from "../Assertions/blog_assertsions"
 
 const blog = new BlogObjects
+const blogAssertion = new BlogAssertsions
 
 
 describe("blog", () => {
@@ -11,7 +13,6 @@ describe("blog", () => {
         cy.requestLink()
         cy.visit('/')
         cy.acceptCookies()
-        0
 
         cy.contains("Blog").should("be.visible")
             .click()
@@ -35,7 +36,16 @@ describe("blog", () => {
     })
 
     it("Verify If Clicking the Shown Blogs is Working", function () {
-        blog.Verify_If_Clicking_the_Shown_Blogs_is_Working("h2.blog-title", this.blog.recentBlogsLinks)
+        const blogTitle = blog.getUrl("h2.blog-title")
+        cy.log(blogTitle)
+        cy.wrap(blogTitle).each((el, index) => {
+            blog.verify_shown_blogs_are_working(`h2.blog-title:eq(${index})`)
+            el = el.replaceAll("advance-excel--google-sheets-training", "advance-excel-google-sheets-training")
+            el = el.replaceAll("celebrating-10-years-of-innovation:-innovuze-solutions,-inc.'s-unforgettable-team-building-event", "celebrating-10-years-of-innovation-innovuze-solutions-inc-s-unforgettable-team-building-event")
+            el = el.replaceAll("project-managers-and-digital-marketing-micro-team-building-2022", "pm-and-digital-marketing-micro-team-building-2022")
+            cy.url().should("include", el)
+            cy.go("back")
+        })
 
     })
 
@@ -65,11 +75,23 @@ describe("blog", () => {
 
     it("Verify If First 10 Blogs Links are Working", function () {
         cy.get(".btn-more-blog").click()
-        blog.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)", this.blog.firstTenBlogsLinks)
+        blog.Verify_If_First_10_Blogs_Links_are_Working("h2.blog-page-title")
     })
 
     it("Verify if Archive Selection is working", function () {
         cy.get(".btn-more-blog").click()
-        blog.Verify_if_Archive_Selection_is_working()
+        let text = blog.getText(".archive  > div")
+
+        cy.wrap(text).each((el, index) => {
+            blog.Verify_if_Archive_Selection_is_working(".archive  > div", index)
+            el = el.split(" ")[0]
+            cy.get(".col-md-9").contains(el)
+        })
+    })
+
+    it("Verify if Read More Button is Working", function () {
+        let url = blog.verify_Read_More_Btn(".blogLatest-holder > .btn")
+        cy.log(url)
+        cy.url().should("include", url)
     })
 })

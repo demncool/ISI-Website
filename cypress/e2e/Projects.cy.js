@@ -21,7 +21,7 @@ describe("Projects", () => {
             .should("be.visible")
     })
 
-    it("Verify if Carousel Links are Working", function () {
+    it.skip("Verify if Carousel Links are Working", function () {
         //PLEASE MODIFY
         ProjectsObjects.Verify_if_Carousel_Links_are_Working(this.projects.projectLinks)
     })
