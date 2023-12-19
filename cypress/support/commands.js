@@ -67,3 +67,19 @@ Cypress.Commands.add('isInViewport', element => {
         expect(rect.bottom).not.to.be.greaterThan(bottom)
     })
 })
+
+
+Cypress.Commands.add("getSize", (selector) => {
+    let size = []
+    cy.get(selector).each((el) => {
+        size.push(el)
+    })
+    return cy.wrap(size)
+})
+
+Cypress.Commands.add("selectOneElementFromArray", (data) => {
+    cy.wrap(data).then((array) => {
+      return array[Math.floor(Math.random() * array.length)]
+      //cy.log(searchData)
+    })
+  })
