@@ -1,6 +1,10 @@
 class ContactUsAssertions {
 
-    assertContactModalContainsElements() {F
+    assertContactModalContainsElements() {
+    }
+
+    verifyFormFieldIfEmptyAssertions() {
+        cy.get(".errors").should("be.visible")
     }
 }
 module.exports = ContactUsAssertions
