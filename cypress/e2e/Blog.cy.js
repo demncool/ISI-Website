@@ -1,6 +1,8 @@
 import BlogObjects from "../Pages/BlogObject"
+import BlogAssertsions from "../Assertions/blog_assertsions"
 
 const blog = new BlogObjects
+const blogAssertion = new BlogAssertsions
 
 
 describe("blog", () => {
@@ -73,10 +75,7 @@ describe("blog", () => {
 
     it("Verify If First 10 Blogs Links are Working", function () {
         cy.get(".btn-more-blog").click()
-        let url = blog.Verify_If_First_10_Blogs_Links_are_Working(".blog-page-list > div > div > div:nth-child(1)")
-        cy.wrap(url).each((el, index) => {
-            cy.wrap(el).should("contain", this.blog.firstTenBlogsLinks[index])
-        })
+        blog.Verify_If_First_10_Blogs_Links_are_Working("h2.blog-page-title")
     })
 
     it("Verify if Archive Selection is working", function () {
