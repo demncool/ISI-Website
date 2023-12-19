@@ -1,3 +1,6 @@
+import BlogAssertsions from "../Assertions/blog_assertsions"
+
+const assertion = new BlogAssertsions
 class BlogObjects {
     //global
 
@@ -33,22 +36,16 @@ class BlogObjects {
             .click()
     }
 
-    Verify_If_First_10_Blogs_Links_are_Working = (element, firstTenBlogsLinks) => {
-        let url = []
-        cy.get(element)
-            .each((el, index, list) => {
-                cy.get(element)
-                    .eq(index)
-                    .then((val) => {
-                        cy.wrap(val)
-                            .click()
-                            .url().then((val) => {
-                                url.push(val)
-                                cy.go("back")
-                            })
-                    })
-            })
-        return url
+    Verify_If_First_10_Blogs_Links_are_Working = (selector, firstTenBlogsLinks) => {
+        cy.get(selector).each((el, index) => {
+            cy.get(selector)
+                .eq(index)
+                .click("left")
+                .invoke("text").then((val) => {
+                    assertion.tenBlogAssertions(val)
+                    cy.go("back")
+                })
+        })
     }
 
     Verify_if_Archive_Selection_is_working = (selector, index) => {
