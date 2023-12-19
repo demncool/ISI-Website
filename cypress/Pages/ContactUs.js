@@ -9,17 +9,25 @@ class ContactUs {
         subject: () => cy.get('#subject'),
         message: () => cy.get('#message')
     }
-    
-    verifyFormFieldIfEmpty(selector) {
+
+    verifyFormFieldIfEmpty(selector, submitBtn) {
         cy.get(selector)
-            .click()
-        contactUsAssertions.assertEmptyFieldFunction()
+            .each((el, index) => {
+                cy.get(selector)
+                    .eq(index)
+                    .click()
+                    .type("Test")
+
+                cy.get(submitBtn)
+                    .click()
+                contactUsAssertions.verifyFormFieldIfEmptyAssertions()
+            })
     }
 
     verifyInvalidEmailFunction(selector, input) {
         cy.get(selector)
+            .click()
             .type(input)
-        cy.get("#getintouch-submit")
     }
 
     inputDataOnFields(name, email, subject, message) {
@@ -32,6 +40,15 @@ class ContactUs {
         cy.getSize(".mb-3 > input").then((size) => {
             cy.selectOneElementFromArray(size).clear()
         })
+
+        cy.get("#getintouch-submit").click()
+    }
+
+    verifyContactUsExpectedFunction(name, email, subject, message) {
+        this.fieldElements.name().type(name)
+        this.fieldElements.email().type(email)
+        this.fieldElements.subject().type(subject)
+        this.fieldElements.message().type(message)
 
         cy.get("#getintouch-submit").click()
     }
