@@ -18,7 +18,7 @@ class ServicesAssertions {
         cy.get(".contact-us-title")
             .should("contain", "Contact Us")
             .and("be.visible")
-            .wait(200)
+            .wait(500)
     }
 }
 module.exports = ServicesAssertions
