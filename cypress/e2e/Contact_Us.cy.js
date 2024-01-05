@@ -4,7 +4,7 @@ import ContactUsAssertions from "../Assertions/contact_us_assertions"
 const contactUsAssertions = new ContactUsAssertions
 const contactUs = new ContactUs
 
-describe("Contact Us Tests", () => {
+describe("Contact Us Functions Tests", () => {
     beforeEach(() => {
         cy.requestLink()
         cy.visit('/')
@@ -22,12 +22,12 @@ describe("Contact Us Tests", () => {
         })
     })
 
-    it("Verify Contact Us Function if Field/s Are Empty", () => {
-        contactUs.verifyFormFieldIfEmpty(".needs-validation > div > input", "#getintouch-submit")
+    it("Verify Contact Us Function if Field/s Are Empty is Working", () => {
+        contactUs.verifyFormFieldIfEmpty()
     })
 
     it("Verify  Invalid Email Error is Working", () => {
-        contactUs.verifyInvalidEmailFunction("#email", "bea.b.m")
+        contactUs.verifyInvalidEmailFunction("bea.b.m")
         cy.contains(".errors", "Email is invalid.").should("be.visible")
     })
 
