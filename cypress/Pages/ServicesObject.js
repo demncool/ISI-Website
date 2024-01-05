@@ -1,13 +1,10 @@
-class Services {
-    Verify_if_the_About_Page_contains_all_elements = function (element, Services) {
-        cy.get(".service-title").should("be.visible")
-            .and("contain", "What We Do")
+import ServicesAssertions from "../Assertions/services_asserstions"
 
-        cy.get(element)
-            .each((el, index, list) => {
-                cy.wrap(el)
-                    .should("contain", Services[index])
-            })
+const servicesAssertions = new ServicesAssertions
+class Services {
+    Verify_if_the_About_Page_contains_all_elements = function (selector, servicesList) {
+        servicesAssertions.assertTitle(".service-title")
+        servicesAssertions.VerifyiftheAboutPageContainsAllElementsAssertions(selector, servicesList)
     }
 
     Verify_if_Inquire_Now_Button_on_Each_Services_is_Working = () => {
@@ -18,10 +15,7 @@ class Services {
                     .eq(index)
                     .then((val) => {
                         cy.wrap(val).click()
-                        cy.get(".contact-us-title")
-                            .should("contain", "Contact Us")
-                            .and("be.visible")
-                            .wait(1000)
+                        servicesAssertions.Verify_if_Inquire_Now_Button_on_Each_Services_is_WorkingAssertion()
                         cy.get(".fa-stack-1x").click()
                     })
             })
