@@ -7,12 +7,10 @@ describe("Services Page", () => {
         cy.fixture("Services").then(function (services) {
             this.services = services
         })
-
         cy.visit('/')
         cy.acceptCookies()
         cy.contains("Services")
             .click()
-
         cy.url().should("eq", "https://dev.innovuze.com/#services")
     })
 
